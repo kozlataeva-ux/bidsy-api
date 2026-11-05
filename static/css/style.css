@@ -19,7 +19,8 @@
 html { scroll-behavior: smooth; scroll-padding-top: 92px; background: var(--bg); }
 body { min-width: 320px; margin: 0; overflow-x: hidden; background: var(--bg); color: var(--text); }
 button, input { font: inherit; }
-button, .button, .nav-cta { font-family: "Unbounded", sans-serif; }
+body, p, input { font-family: "Golos Text", sans-serif; }
+button, .btn, .button, .nav-cta { font-family: "Manrope", sans-serif; }
 input, textarea, select { font-family: "Golos Text", sans-serif; }
 a { color: inherit; }
 button:focus-visible, input:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
@@ -41,9 +42,10 @@ button:focus-visible, input:focus-visible, a:focus-visible, summary:focus-visibl
 .container { width: min(1120px, calc(100% - 48px)); margin-inline: auto; }
 .topbar { position: sticky; z-index: 8; top: 0; border-bottom: 1px solid #ffffff0d; background: #0f0f13c9; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
 .topbar-inner { display: flex; min-height: 76px; align-items: center; justify-content: space-between; gap: 28px; }
-.brand { display: inline-flex; align-items: center; gap: 10px; color: var(--text); font-family: "Unbounded", sans-serif; font-size: 16px; font-weight: 600; letter-spacing: -.5px; text-decoration: none; }
-.site-logo { height: 40px; width: 40px; border-radius: 8px; object-fit: contain; }
-.brand-mark { display: grid; width: 35px; height: 35px; place-items: center; border: 1px solid #c4a7ff55; border-radius: 11px; background: linear-gradient(145deg, #8b5cf6, #6845cf); box-shadow: 0 6px 22px #8b5cf63b; color: white; font-family: "Unbounded", sans-serif; font-size: 19px; }
+.brand { display: inline-flex; align-items: center; gap: 0; color: var(--text); font-family: "Manrope", sans-serif; font-size: 16px; font-weight: 600; letter-spacing: -.5px; text-decoration: none; }
+.site-logo { width: 36px; height: 36px; border-radius: 8px; margin-right: 12px; object-fit: contain; }
+.hero-logo { width: 100%; max-width: 350px; border-radius: 24px; box-shadow: 0 0 50px rgba(139, 92, 246, 0.4); object-fit: contain; }
+.brand-mark { display: grid; width: 35px; height: 35px; place-items: center; border: 1px solid #c4a7ff55; border-radius: 11px; background: linear-gradient(145deg, #8b5cf6, #6845cf); box-shadow: 0 6px 22px #8b5cf63b; color: white; font-family: "Manrope", sans-serif; font-size: 19px; }
 .brand-accent { color: #b99cff; }
 .navigation { display: flex; align-items: center; gap: 29px; }
 .navigation a { color: #b5b1bf; font-size: 11px; text-decoration: none; transition: color .2s; }
@@ -54,9 +56,9 @@ button:focus-visible, input:focus-visible, a:focus-visible, summary:focus-visibl
 .hero { display: grid; min-height: 665px; grid-template-columns: minmax(0, 1.08fr) minmax(340px, .92fr); align-items: center; gap: 55px; padding-block: 72px 80px; }
 .eyebrow { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; color: #c2aaff; font-size: 9px; font-weight: 700; letter-spacing: 1.55px; text-transform: uppercase; }
 .eyebrow::before { width: 18px; height: 1px; background: linear-gradient(90deg, var(--purple), var(--cyan)); content: ""; }
-h1, h2, h3 { font-family: "Unbounded", sans-serif; }
+h1, h2, h3, .btn { font-family: "Manrope", sans-serif; }
 h1, h2, h3, p { margin-top: 0; }
-h1 { max-width: 650px; margin-bottom: 20px; font-size: clamp(45px, 6vw, 76px); font-weight: 700; letter-spacing: -4.3px; line-height: 1.02; }
+h1 { max-width: 650px; margin-bottom: 20px; font-size: 3.5rem; font-weight: 700; letter-spacing: -4.3px; line-height: 1.02; }
 .gradient-text { background: linear-gradient(100deg, #b99cff, #8e9bf9 59%, #63d9e7); background-clip: text; -webkit-text-fill-color: transparent; }
 .hero-copy { min-height: 54px; max-width: 520px; margin-bottom: 28px; color: #b2aebb; font-size: 14px; line-height: 1.8; }
 .type-cursor { display: inline-block; width: 1px; height: 1em; margin-left: 3px; background: #a88cff; vertical-align: -2px; animation: blink .8s step-end infinite; }
@@ -89,8 +91,6 @@ h1 { max-width: 650px; margin-bottom: 20px; font-size: clamp(45px, 6vw, 76px); f
 .hero-visual { position: relative; display: grid; min-height: 400px; place-items: center; }
 .visual-orbit { position: absolute; width: 370px; height: 210px; border: 1px solid #a78bfa25; border-radius: 50%; transform: rotate(-27deg); }
 .visual-orbit.second { width: 310px; height: 310px; border-color: #06b6d420; transform: rotate(27deg) scaleX(.76); }
-.visual-core { position: relative; display: grid; width: 172px; height: 172px; place-items: center; border: 1px solid #ffffff2b; border-radius: 45px; background: linear-gradient(145deg, #8b5cf650, #14141ced 57%, #06b6d424); box-shadow: 0 15px 80px #8b5cf639, inset 0 1px #ffffff45; transform: rotate(-8deg); }
-.visual-core span { color: #e8ddff; font-size: 104px; font-weight: 800; letter-spacing: -11px; text-indent: -9px; transform: rotate(8deg); }
 .float-chip { position: absolute; display: flex; align-items: center; gap: 9px; padding: 12px 14px; border: 1px solid #ffffff19; border-radius: 12px; background: #15141de8; box-shadow: 0 12px 36px #0005; color: #d8d4df; font-size: 9px; backdrop-filter: blur(12px); animation: chip-float 5s ease-in-out infinite; }
 .float-chip i { color: #b79aff; font-style: normal; }
 .float-chip.one { top: 70px; left: -8px; }
@@ -165,12 +165,11 @@ h1 { max-width: 650px; margin-bottom: 20px; font-size: clamp(45px, 6vw, 76px); f
 
 @media (max-width: 900px) {
   .hero { min-height: auto; grid-template-columns: 1fr 1fr; gap: 26px; padding-block: 68px; }
-  h1 { font-size: clamp(42px, 6vw, 61px); }
+  h1 { font-size: clamp(2.7rem, 6vw, 3.5rem); }
   .hero-visual { min-height: 335px; }
   .visual-orbit { width: 300px; }
   .visual-orbit.second { width: 250px; height: 250px; }
-  .visual-core { width: 140px; height: 140px; border-radius: 38px; }
-  .visual-core span { font-size: 85px; }
+  .hero-logo { max-width: 300px; }
   .float-chip.one { left: 0; }
   .float-chip.two { right: -4px; }
 }
@@ -182,10 +181,9 @@ h1 { max-width: 650px; margin-bottom: 20px; font-size: clamp(45px, 6vw, 76px); f
   .nav-cta { min-height: 37px; padding-inline: 12px; font-size: 9px; }
   .hero { grid-template-columns: 1fr; gap: 20px; padding-block: 61px 43px; }
   .hero-copy { min-height: 0; font-size: 12px; }
-  h1 { max-width: 550px; font-size: clamp(43px, 11vw, 64px); letter-spacing: -3px; }
+  h1 { max-width: 550px; font-size: clamp(2.3rem, 11vw, 3.5rem); letter-spacing: -3px; }
   .hero-visual { min-height: 295px; }
-  .visual-core { width: 125px; height: 125px; }
-  .visual-core span { font-size: 75px; }
+  .hero-logo { max-width: 260px; }
   .section { padding-block: 66px; }
   .problem-grid, .feature-grid { grid-template-columns: 1fr; }
   .problem-card, .feature-card { min-height: 0; }
