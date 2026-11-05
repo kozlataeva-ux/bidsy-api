@@ -43,7 +43,12 @@ if (form && consent && submitButton) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const result = await response.json();
+      let result;
+      try {
+        result = await response.json();
+      } catch (_error) {
+        throw new Error("Сервер временно недоступен. Попробуйте позже.");
+      }
       if (!response.ok || result.status !== "success") {
         throw new Error(result.message || "Не удалось отправить заявку.");
       }
