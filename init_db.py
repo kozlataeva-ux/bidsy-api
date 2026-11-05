@@ -6,7 +6,7 @@ import string
 from contextlib import closing
 from pathlib import Path
 
-DATABASE = Path(__file__).resolve().parent / "database.db"
+DATABASE = Path("/tmp/database.db")
 KEY_ALPHABET = string.ascii_uppercase + string.digits
 
 

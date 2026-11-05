@@ -16,6 +16,11 @@ app = Flask(__name__)
 init_db()
 
 
+@app.route("/health")
+def health():
+    return "OK", 200
+
+
 @contextmanager
 def get_db():
     connection = sqlite3.connect(DATABASE, timeout=10)
