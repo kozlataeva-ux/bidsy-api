@@ -2,21 +2,15 @@
 
 import hmac
 import os
-import smtplib
+import requests
 import sqlite3
 from contextlib import contextmanager
-from email.message import EmailMessage
 
 from flask import Flask, Response, jsonify, render_template, request
 
 from init_db import DATABASE, generate_license_key, init_db
 
-# SMTP settings. Set these environment variables before approving requests.
-SMTP_HOST = os.environ.get("OQ_SMTP_HOST", "")
-SMTP_PORT = int(os.environ.get("OQ_SMTP_PORT", "465"))
-SMTP_USER = os.environ.get("OQ_SMTP_USER", "")
-SMTP_PASSWORD = os.environ.get("OQ_SMTP_PASSWORD", "")
-SMTP_FROM = os.environ.get("OQ_SMTP_FROM", SMTP_USER)
+RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
 
 app = Flask(__name__)
 init_db()
@@ -47,21 +41,23 @@ def require_admin():
 
 
 def send_license_email(email, full_name, company_name, license_key):
-    if not all((SMTP_HOST, SMTP_USER, SMTP_PASSWORD, SMTP_FROM)):
-        raise RuntimeError("SMTP не настроен: задайте OQ_SMTP_HOST, OQ_SMTP_USER, OQ_SMTP_PASSWORD и OQ_SMTP_FROM")
-    message = EmailMessage()
-    message["Subject"] = "Лицензионный ключ OQ Смета"
-    message["From"] = SMTP_FROM
-    message["To"] = email
-    message.set_content(
-        f"Здравствуйте, {full_name}!\n\n"
-        f"Заявка компании «{company_name}» одобрена.\n"
-        f"Ваш лицензионный ключ: {license_key}\n\n"
-        "Введите ключ в приложении OQ Смета для активации."
-    )
-    with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT, timeout=20) as smtp:
-        smtp.login(SMTP_USER, SMTP_PASSWORD)
-        smtp.send_message(message)
+    if not RESEND_API_KEY:
+        raise RuntimeError("Resend API Key не настроен: задайте RESEND_API_KEY")
+
+    url = "https://api.resend.com/emails"
+    headers = {
+        "Authorization": f"Bearer {RESEND_API_KEY}",
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "from": "Bidsy <onboarding@resend.dev>",
+        "to": [email],
+        "subject": "Лицензионный ключ Bidsy",
+        "html": f"<h2>Здравствуйте, {full_name}!</h2><p>Заявка компании «{company_name}» одобрена.</p><p>Ваш лицензионный ключ: <strong style='font-size: 20px;'>{license_key}</strong></p><p>Введите ключ в приложении Bidsy для активации.</p>"
+    }
+    response = requests.post(url, json=payload, headers=headers)
+    if response.status_code != 200:
+        raise RuntimeError(f"Ошибка Resend API: {response.text}")
 
 
 @app.get("/")
@@ -134,7 +130,7 @@ def approve(company_id):
                 (key, company_id),
             )
             send_license_email(company["email"], company["full_name"], company["company_name"], key)
-    except (OSError, smtplib.SMTPException, RuntimeError) as error:
+    except (OSError, requests.RequestException, RuntimeError) as error:
         app.logger.error("Не удалось отправить лицензию для заявки %s: %s", company_id, error)
         return jsonify(status="error", message="Письмо не отправлено; заявка осталась ожидающей"), 502
     except sqlite3.IntegrityError:
