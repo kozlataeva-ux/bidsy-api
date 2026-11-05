@@ -1,5 +1,4 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css");
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
 :root {
   color-scheme: dark;
@@ -11,7 +10,7 @@
   --purple: #8b5cf6;
   --cyan: #06b6d4;
   --green: #65e6a3;
-  font-family: Inter, system-ui, sans-serif;
+  font-family: "Golos Text", system-ui, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 }
@@ -20,6 +19,8 @@
 html { scroll-behavior: smooth; scroll-padding-top: 92px; background: var(--bg); }
 body { min-width: 320px; margin: 0; overflow-x: hidden; background: var(--bg); color: var(--text); }
 button, input { font: inherit; }
+button, .button, .nav-cta { font-family: "Unbounded", sans-serif; }
+input, textarea, select { font-family: "Golos Text", sans-serif; }
 a { color: inherit; }
 button:focus-visible, input:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
 .site-shell { position: relative; min-height: 100vh; isolation: isolate; }
@@ -40,8 +41,9 @@ button:focus-visible, input:focus-visible, a:focus-visible, summary:focus-visibl
 .container { width: min(1120px, calc(100% - 48px)); margin-inline: auto; }
 .topbar { position: sticky; z-index: 8; top: 0; border-bottom: 1px solid #ffffff0d; background: #0f0f13c9; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
 .topbar-inner { display: flex; min-height: 76px; align-items: center; justify-content: space-between; gap: 28px; }
-.brand { display: inline-flex; align-items: center; gap: 10px; color: var(--text); font-size: 19px; font-weight: 800; letter-spacing: -.8px; text-decoration: none; }
-.brand-mark { display: grid; width: 35px; height: 35px; place-items: center; border: 1px solid #c4a7ff55; border-radius: 11px; background: linear-gradient(145deg, #8b5cf6, #6845cf); box-shadow: 0 6px 22px #8b5cf63b; color: white; font-size: 19px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; color: var(--text); font-family: "Unbounded", sans-serif; font-size: 16px; font-weight: 600; letter-spacing: -.5px; text-decoration: none; }
+.site-logo { height: 40px; width: 40px; border-radius: 8px; object-fit: contain; }
+.brand-mark { display: grid; width: 35px; height: 35px; place-items: center; border: 1px solid #c4a7ff55; border-radius: 11px; background: linear-gradient(145deg, #8b5cf6, #6845cf); box-shadow: 0 6px 22px #8b5cf63b; color: white; font-family: "Unbounded", sans-serif; font-size: 19px; }
 .brand-accent { color: #b99cff; }
 .navigation { display: flex; align-items: center; gap: 29px; }
 .navigation a { color: #b5b1bf; font-size: 11px; text-decoration: none; transition: color .2s; }
@@ -52,6 +54,7 @@ button:focus-visible, input:focus-visible, a:focus-visible, summary:focus-visibl
 .hero { display: grid; min-height: 665px; grid-template-columns: minmax(0, 1.08fr) minmax(340px, .92fr); align-items: center; gap: 55px; padding-block: 72px 80px; }
 .eyebrow { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; color: #c2aaff; font-size: 9px; font-weight: 700; letter-spacing: 1.55px; text-transform: uppercase; }
 .eyebrow::before { width: 18px; height: 1px; background: linear-gradient(90deg, var(--purple), var(--cyan)); content: ""; }
+h1, h2, h3 { font-family: "Unbounded", sans-serif; }
 h1, h2, h3, p { margin-top: 0; }
 h1 { max-width: 650px; margin-bottom: 20px; font-size: clamp(45px, 6vw, 76px); font-weight: 700; letter-spacing: -4.3px; line-height: 1.02; }
 .gradient-text { background: linear-gradient(100deg, #b99cff, #8e9bf9 59%, #63d9e7); background-clip: text; -webkit-text-fill-color: transparent; }
