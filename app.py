@@ -13,7 +13,10 @@ from init_db import DATABASE, generate_license_key, init_db
 RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
 
 app = Flask(__name__)
-init_db()
+try:
+    init_db()
+except Exception as exc:
+    print(f"Ошибка инициализации базы данных: {exc}")
 
 
 @app.route("/health")
@@ -55,7 +58,7 @@ def send_license_email(email, full_name, company_name, license_key):
         "Content-Type": "application/json"
     }
     payload = {
-        "from": "Bidsy <onboarding@resend.dev>",
+        "from": "Bidsy <info@bidsy.ru>",
         "to": [email],
         "subject": "Лицензионный ключ Bidsy",
         "html": f"<h2>Здравствуйте, {full_name}!</h2><p>Заявка компании «{company_name}» одобрена.</p><p>Ваш лицензионный ключ: <strong style='font-size: 20px;'>{license_key}</strong></p><p>Введите ключ в приложении Bidsy для активации.</p>"
@@ -67,7 +70,10 @@ def send_license_email(email, full_name, company_name, license_key):
 
 @app.get("/")
 def index():
-    return render_template("index.html")
+    try:
+        return render_template("index.html")
+    except Exception as exc:
+        return f"Ошибка загрузки главной страницы: {exc}", 500
 
 
 @app.post("/register")
