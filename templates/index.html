@@ -3,163 +3,139 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#F8F9FA">
-  <title>OQ Смета — сметы подрядчиков в один клик</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>tailwind.config = {theme: {extend: {fontFamily: {sans: ['Inter', 'sans-serif']}, colors: {accent: '#6366F1', canvas: '#F8F9FA'}}}}</script>
+  <meta name="theme-color" content="#0f0f13">
+  <meta name="description" content="BiDsy автоматизирует подготовку строительных смет: разбирает исходные документы и помогает быстрее переносить позиции в estimates.guru.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="BiDsy">
+  <meta property="og:title" content="BiDsy — автоматизация смет">
+  <meta property="og:description" content="Меньше ручной работы при подготовке смет. Загрузите заявку на ранний доступ к BiDsy.">
+  <meta property="og:url" content="https://bidsy.ru/">
+  <meta name="twitter:card" content="summary">
+  <title>BiDsy — Автоматизация смет для подрядчиков</title>
+  <link rel="canonical" href="https://bidsy.ru/">
+  <link rel="icon" type="image/png" href="/static/favicon.png">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "BiDsy",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Windows",
+    "description": "Автоматизация подготовки и переноса строительных смет."
+  }
+  </script>
 </head>
-<body class="min-h-screen bg-canvas font-sans text-slate-950 antialiased">
-  <div class="pointer-events-none absolute inset-x-0 top-0 h-[620px] overflow-hidden" aria-hidden="true">
-    <div class="absolute -top-64 left-1/2 h-[650px] w-[850px] -translate-x-1/2 rounded-full bg-indigo-200/50 blur-3xl"></div>
-  </div>
-  <div class="relative mx-auto max-w-7xl px-5 pb-20 sm:px-8">
-    <header class="flex items-center justify-between py-7">
-      <a href="/" class="flex items-center gap-3 text-lg font-extrabold tracking-tight" aria-label="OQ Смета — главная">
-        <span class="grid h-10 w-10 place-items-center rounded-2xl bg-accent text-sm font-bold text-white shadow-lg shadow-indigo-500/25">OQ</span>
-        OQ Смета
-      </a>
-      <button type="button" data-open-modal class="rounded-full border border-slate-200 bg-white/90 px-5 py-2.5 text-sm font-semibold shadow-sm transition hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-md">Получить ключ</button>
+<body>
+  <div class="site-shell">
+    <div class="ambient" aria-hidden="true"></div>
+    <div class="particle-field" aria-hidden="true">
+      <span class="particle"></span><span class="particle"></span><span class="particle"></span><span class="particle"></span>
+      <span class="particle"></span><span class="particle"></span><span class="particle"></span><span class="particle"></span>
+    </div>
+
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <a class="brand" href="#top" aria-label="BiDsy — главная"><span class="brand-mark">B</span><span>Bi<span class="brand-accent">D</span>sy</span></a>
+        <nav class="navigation" aria-label="Основная навигация">
+          <a href="#problems">Возможности</a>
+          <a href="#how-it-works">Как работает</a>
+          <a href="#faq">FAQ</a>
+          <a class="nav-cta" href="#request-form">Оставить заявку <span aria-hidden="true">↗</span></a>
+        </nav>
+      </div>
     </header>
 
-    <main>
-      <section class="mx-auto max-w-4xl pb-14 pt-16 text-center sm:pt-24">
-        <div class="mb-7 inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-white/80 px-4 py-2 text-xs font-semibold text-indigo-700 shadow-sm">
-          <span class="h-2 w-2 rounded-full bg-accent"></span> Рабочий процесс без рутины
+    <main id="top">
+      <section class="container hero">
+        <div class="hero-copy-block" data-aos="fade-up">
+          <div class="eyebrow">УМНАЯ АВТОМАТИЗАЦИЯ СМЕТ</div>
+          <h1>Сметы готовы.<br><span class="gradient-text">Рутина — нет.</span></h1>
+          <p class="hero-copy" id="typed-subtitle" data-text="BiDsy помогает разобрать исходный файл и перенести позиции в смету. Меньше ручного ввода — больше времени на работу.">BiDsy помогает разобрать исходный файл и перенести позиции в смету. Меньше ручного ввода — больше времени на работу.</p>
+          <ul class="hero-points">
+            <li><i>✦</i> PDF и Excel</li><li><i>✦</i> Контроль параметров</li><li><i>✦</i> Быстрый перенос позиций</li>
+          </ul>
         </div>
-        <h1 class="text-5xl font-extrabold leading-[1.08] tracking-[-0.055em] sm:text-7xl">Сметы подрядчиков<br><span class="bg-gradient-to-r from-indigo-600 to-violet-500 bg-clip-text text-transparent">в один клик</span></h1>
-        <p class="mx-auto mt-7 max-w-2xl text-lg leading-8 text-slate-600">Собирайте расчёты, управляйте данными и переходите от заявки к готовой смете быстрее.</p>
-        <div class="mt-9 flex flex-wrap items-center justify-center gap-4">
-          <button type="button" data-open-modal class="rounded-2xl bg-accent px-7 py-4 text-sm font-semibold text-white shadow-xl shadow-indigo-500/25 transition hover:-translate-y-1 hover:bg-indigo-600 hover:shadow-2xl">Получить ключ <span aria-hidden="true">↗</span></button>
-          <span class="text-sm text-slate-500">Ключ придёт после одобрения заявки</span>
+
+        <div class="form-card" id="request-form" data-aos="fade-left" data-aos-delay="100">
+          <div class="form-heading"><h2>Запросить ранний доступ</h2><p>Оставьте контакты. Команда BiDsy свяжется с вами по заявке.</p></div>
+          <form class="registration-form" id="signup-form">
+            <div class="form-grid">
+              <label class="field">Название компании<input name="company_name" type="text" maxlength="200" autocomplete="organization" placeholder="ООО «Компания»" required></label>
+              <label class="field">ФИО<input name="full_name" type="text" maxlength="200" autocomplete="name" placeholder="Иванов Иван Иванович" required></label>
+              <label class="field">Рабочий email<input name="email" type="email" maxlength="254" autocomplete="email" placeholder="name@company.ru" required></label>
+              <label class="field">Телефон <span>(необязательно)</span><input name="phone" type="tel" maxlength="50" autocomplete="tel" placeholder="+7 (___) ___-__-__"></label>
+            </div>
+            <label class="consent-row" for="personal-data-consent">
+              <input id="personal-data-consent" name="personal_data_consent" type="checkbox" required>
+              <span>Я даю согласие на обработку моих персональных данных в соответствии с <a href="/privacy" target="_blank" rel="noopener">Политикой конфиденциальности</a>.</span>
+            </label>
+            <button class="button submit-button" id="submit-button" type="submit" disabled>Отправить заявку <span aria-hidden="true">→</span></button>
+            <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+            <p class="form-note">Данные используются для рассмотрения заявки и связи с вами.</p>
+          </form>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true" data-aos="zoom-in" data-aos-delay="180">
+          <div class="visual-orbit"></div><div class="visual-orbit second"></div>
+          <div class="visual-core"><span>B</span></div>
+          <div class="float-chip one"><i>✦</i> Анализ сметы</div>
+          <div class="float-chip two"><i>✓</i> Готово к переносу</div>
         </div>
       </section>
 
-      <section class="grid gap-4 md:grid-cols-3" aria-label="Возможности">
-        <article class="relative overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white p-8 shadow-[0_16px_60px_-36px_rgba(30,41,59,.35)] md:col-span-2 md:min-h-[340px]">
-          <div class="relative z-10 max-w-md">
-            <span class="mb-6 inline-flex rounded-xl bg-indigo-50 p-3 text-xl text-indigo-600" aria-hidden="true">▦</span>
-            <h2 class="text-2xl font-bold tracking-tight sm:text-3xl">Все расчёты. Одна система.</h2>
-            <p class="mt-4 max-w-sm leading-7 text-slate-500">Структура сметы под рукой: меньше ручных действий, больше времени на решение задач.</p>
+      <section class="section" id="problems">
+        <div class="container">
+          <div class="section-head" data-aos="fade-up"><div class="eyebrow">МЕНЬШЕ РУТИНЫ</div><h2>Проблемы, <span class="gradient-text">которые мы решаем</span></h2><p>Убираем повторяющиеся действия из подготовки смет, чтобы вы могли сосредоточиться на расчётах и проекте.</p></div>
+          <div class="problem-grid">
+            <article class="glass-card problem-card" data-aos="fade-up"><div class="card-icon">⌕</div><h3>Ручной разбор документов</h3><p>Позиции в PDF и таблицах приходится искать, сверять и переносить вручную. BiDsy помогает структурировать исходные данные.</p></article>
+            <article class="glass-card problem-card" data-aos="fade-up" data-aos-delay="80"><div class="card-icon cyan">⟳</div><h3>Повторяющийся ввод</h3><p>Одни и те же операции отнимают время на каждом проекте. Автоматизация сокращает рутинные действия при заполнении сметы.</p></article>
+            <article class="glass-card problem-card" data-aos="fade-up" data-aos-delay="160"><div class="card-icon">⌁</div><h3>Ошибки и пропуски</h3><p>Внимание легко теряется в длинных списках. Понятный процесс и контроль ключевых параметров помогают работать аккуратнее.</p></article>
           </div>
-          <div class="absolute -bottom-16 -right-12 w-[70%] min-w-[360px] rotate-[-8deg] rounded-2xl border border-slate-200 bg-white p-4 shadow-2xl shadow-slate-900/10" aria-hidden="true">
-            <div class="mb-4 flex items-center gap-2 border-b border-slate-100 pb-3"><i class="h-2.5 w-2.5 rounded-full bg-rose-300"></i><i class="h-2.5 w-2.5 rounded-full bg-amber-300"></i><i class="h-2.5 w-2.5 rounded-full bg-emerald-300"></i><span class="ml-3 text-xs font-semibold text-slate-400">Проект / Смета</span></div>
-            <div class="space-y-3"><div class="h-8 rounded-lg bg-indigo-50"></div><div class="h-8 rounded-lg bg-slate-100"></div><div class="h-8 rounded-lg bg-slate-100"></div><div class="ml-auto h-8 w-1/3 rounded-lg bg-indigo-100"></div></div>
+        </div>
+      </section>
+
+      <section class="section" id="how-it-works">
+        <div class="container">
+          <div class="section-head" data-aos="fade-up"><div class="eyebrow">ПРОСТОЙ ПРОЦЕСС</div><h2>От файла <span class="gradient-text">до сметы</span></h2><p>BiDsy сопровождает основные шаги подготовки данных и заполнения сметы.</p></div>
+          <div class="steps">
+            <article class="step" data-aos="fade-up"><div class="step-number">01</div><h3>Добавьте файл</h3><p>Выберите исходный документ в формате PDF или Excel.</p></article>
+            <article class="step" data-aos="fade-up" data-aos-delay="100"><div class="step-number">02</div><h3>Проверьте параметры</h3><p>Задайте коэффициенты и наценку для расчёта.</p></article>
+            <article class="step" data-aos="fade-up" data-aos-delay="200"><div class="step-number">03</div><h3>Заполните смету</h3><p>Передайте подготовленные позиции в рабочий процесс на estimates.guru.</p></article>
           </div>
-        </article>
-        <article class="flex min-h-[340px] flex-col justify-between rounded-[2rem] bg-slate-950 p-8 text-white shadow-[0_16px_60px_-36px_rgba(30,41,59,.5)]">
-          <div class="grid h-14 w-14 place-items-center rounded-2xl bg-white/10 text-2xl" aria-hidden="true">✦</div>
-          <div><h2 class="text-2xl font-bold tracking-tight">Быстрый старт</h2><p class="mt-4 leading-7 text-slate-400">Заполните короткую форму. Получите лицензионный ключ и активируйте приложение.</p></div>
-        </article>
-        <article class="min-h-[250px] rounded-[2rem] border border-slate-200/80 bg-white p-8 shadow-[0_16px_60px_-36px_rgba(30,41,59,.35)]">
-          <span class="text-3xl text-indigo-500" aria-hidden="true">↗</span><h2 class="mt-9 text-xl font-bold">Прозрачный процесс</h2><p class="mt-3 leading-7 text-slate-500">Данные компании и ключ связаны в одной записи.</p>
-        </article>
-        <article class="min-h-[250px] rounded-[2rem] border border-indigo-200 bg-gradient-to-br from-indigo-100 to-white p-8 md:col-span-2">
-          <div class="flex h-full flex-col justify-between"><span class="text-3xl text-indigo-500" aria-hidden="true">⌘</span><div><h2 class="text-2xl font-bold tracking-tight">Готовы начать?</h2><p class="mt-3 text-slate-600">Оставьте данные компании и сразу получите ключ.</p><button type="button" data-open-modal class="mt-5 text-sm font-bold text-indigo-700 transition hover:text-indigo-900">Получить ключ →</button></div></div>
-        </article>
+        </div>
+      </section>
+
+      <section class="section" id="faq">
+        <div class="container">
+          <div class="section-head" data-aos="fade-up"><div class="eyebrow">ОТВЕТЫ</div><h2>Частые <span class="gradient-text">вопросы</span></h2><p>Коротко о работе BiDsy и раннем доступе.</p></div>
+          <div class="faq-list" data-aos="fade-up">
+            <details class="faq-item"><summary>Какие файлы поддерживает BiDsy?</summary><div class="faq-answer">Приложение рассчитано на исходные сметы в PDF и Excel. Доступные форматы зависят от содержимого документа и версии приложения.</div></details>
+            <details class="faq-item"><summary>Нужно ли переносить смету вручную?</summary><div class="faq-answer">BiDsy автоматизирует разбор и заполнение повторяющихся полей. Перед отправкой результата вы можете проверить параметры сметы.</div></details>
+            <details class="faq-item"><summary>Как получить доступ?</summary><div class="faq-answer">Отправьте заявку через форму. Команда рассмотрит её и свяжется с вами по указанному адресу электронной почты.</div></details>
+            <details class="faq-item"><summary>Что происходит с загруженными файлами?</summary><div class="faq-answer">На сайте нет загрузки файлов смет. Файлы, выбранные в настольном приложении, обрабатываются приложением в соответствии с его настройками.</div></details>
+          </div>
+        </div>
+      </section>
+
+      <section class="container section" data-aos="fade-up">
+        <div class="bottom-cta"><div><h2>Готовы упростить работу со сметами?</h2><p>Оставьте заявку на ранний доступ к BiDsy.</p></div><a class="button" href="#request-form">Запросить доступ <span aria-hidden="true">→</span></a></div>
       </section>
     </main>
-    <footer class="mt-16 border-t border-slate-200 py-7 text-sm text-slate-500">© OQ Смета</footer>
+
+    <footer class="container footer">
+      <span>© 2026 BiDsy. Все права защищены.</span>
+      <nav class="footer-links" aria-label="Юридическая информация"><a href="/privacy">Политика конфиденциальности</a><a href="mailto:info@bidsy.ru">Связаться с нами</a></nav>
+    </footer>
   </div>
 
-  <div id="modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/60 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="relative w-full max-w-lg rounded-[2rem] bg-white p-7 shadow-2xl sm:p-9">
-      <button type="button" id="close-modal" class="absolute right-5 top-5 grid h-9 w-9 place-items-center rounded-full text-xl text-slate-500 transition hover:bg-slate-100 hover:text-slate-950" aria-label="Закрыть">×</button>
-      <div id="form-view">
-        <div class="mb-5 grid h-12 w-12 place-items-center rounded-2xl bg-indigo-100 font-bold text-indigo-600">OQ</div>
-        <h2 id="modal-title" class="text-3xl font-bold tracking-tight">Получить ключ</h2>
-        <p class="mt-2 text-sm leading-6 text-slate-500">Заполните данные. Заявка поступит администратору на проверку.</p>
-        <form id="register-form" class="mt-7 space-y-4">
-          <label class="block text-sm font-semibold text-slate-700">Название компании
-            <input name="company_name" type="text" required maxlength="200" autocomplete="organization" class="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 font-normal outline-none transition focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100" placeholder="ООО «Компания»">
-          </label>
-          <label class="block text-sm font-semibold text-slate-700">ФИО
-            <input name="full_name" type="text" required maxlength="200" autocomplete="name" class="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 font-normal outline-none transition focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100" placeholder="Иванов Иван Иванович">
-          </label>
-          <label class="block text-sm font-semibold text-slate-700">Email
-            <input name="email" type="email" required maxlength="254" autocomplete="email" class="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 font-normal outline-none transition focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100" placeholder="you@company.ru">
-          </label>
-          <label class="block text-sm font-semibold text-slate-700">Телефон <span class="font-normal text-slate-400">(необязательно)</span>
-            <input name="phone" type="tel" maxlength="50" autocomplete="tel" class="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 font-normal outline-none transition focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100" placeholder="+7 999 123-45-67">
-          </label>
-          <p id="form-error" class="hidden rounded-xl bg-rose-50 px-4 py-3 text-sm text-rose-700" role="alert"></p>
-          <button id="submit-button" type="submit" class="w-full rounded-xl bg-accent px-5 py-3.5 font-semibold text-white shadow-lg shadow-indigo-500/20 transition hover:-translate-y-0.5 hover:bg-indigo-600 hover:shadow-xl disabled:cursor-wait disabled:opacity-60">Получить ключ</button>
-        </form>
-      </div>
-      <div id="success-view" class="hidden py-4 text-center" aria-live="polite">
-        <div class="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-indigo-100 text-3xl text-indigo-600">✓</div>
-        <h2 class="mt-6 text-3xl font-bold tracking-tight">Заявка отправлена</h2>
-        <p class="mt-4 rounded-2xl border border-indigo-100 bg-indigo-50 px-5 py-6 text-base leading-7 text-indigo-950">Ваша заявка отправлена на модерацию. Как только администратор одобрит её, ключ активации придет на вашу почту!</p>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const modal = document.getElementById('modal');
-    const form = document.getElementById('register-form');
-    const errorBox = document.getElementById('form-error');
-    const submitButton = document.getElementById('submit-button');
-    let previousFocus;
-
-    function openModal() {
-      previousFocus = document.activeElement;
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-      document.body.classList.add('overflow-hidden');
-      if (!document.getElementById('form-view').classList.contains('hidden')) form.elements.company_name.focus();
-      else document.getElementById('copy-key').focus();
-    }
-    function closeModal() {
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-      document.body.classList.remove('overflow-hidden');
-      previousFocus?.focus();
-    }
-    async function copyText(value) {
-      if (navigator.clipboard?.writeText) {
-        try { await navigator.clipboard.writeText(value); return true; } catch (_) {}
-      }
-      const input = document.createElement('textarea');
-      input.value = value;
-      input.style.position = 'fixed';
-      input.style.opacity = '0';
-      document.body.appendChild(input);
-      input.select();
-      const copied = document.execCommand('copy');
-      input.remove();
-      return copied;
-    }
-    document.querySelectorAll('[data-open-modal]').forEach(button => button.addEventListener('click', openModal));
-    document.getElementById('close-modal').addEventListener('click', closeModal);
-    modal.addEventListener('click', event => { if (event.target === modal) closeModal(); });
-    document.addEventListener('keydown', event => { if (event.key === 'Escape' && !modal.classList.contains('hidden')) closeModal(); });
-    form.addEventListener('submit', async event => {
-      event.preventDefault();
-      errorBox.classList.add('hidden');
-      submitButton.disabled = true;
-      submitButton.textContent = 'Создаём ключ…';
-      const fields = new FormData(form);
-      try {
-        const response = await fetch('/register', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(Object.fromEntries(fields))
-        });
-        const data = await response.json();
-        if (!response.ok) throw new Error(data.error || 'Не удалось создать ключ');
-        document.getElementById('form-view').classList.add('hidden');
-        document.getElementById('success-view').classList.remove('hidden');
-        document.getElementById('success-view').focus();
-      } catch (error) {
-        errorBox.textContent = error.message || 'Ошибка сети. Повторите попытку.';
-        errorBox.classList.remove('hidden');
-      } finally {
-        submitButton.disabled = false;
-        submitButton.textContent = 'Получить ключ';
-      }
-    });
-  </script>
+  <aside class="cookie-banner" id="cookie-banner" aria-label="Настройки файлов cookie" hidden>
+    <div class="cookie-copy"><strong>Настройки конфиденциальности</strong><span>Мы используем файлы cookie для аналитики и улучшения работы сайта. Подробнее — в <a href="/privacy">Политике конфиденциальности</a>.</span></div>
+    <div class="cookie-actions"><button class="cookie-button primary" id="accept-all-cookies" type="button">Принять все</button><button class="cookie-button" id="necessary-cookies" type="button">Только необходимые</button></div>
+  </aside>
+  <div class="toast" id="signup-toast" role="status" aria-live="polite"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
+  <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
 </body>
 </html>

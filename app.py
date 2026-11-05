@@ -44,7 +44,7 @@ def require_admin():
     password = auth.password if auth else ""
     expected = os.environ.get("OQ_ADMIN_PASSWORD", "OQsuperadmin2026")
     if not (hmac.compare_digest(username, "admin") and hmac.compare_digest(password, expected)):
-        return Response("Требуется авторизация", 401, {"WWW-Authenticate": 'Basic realm="OQ Admin", charset="UTF-8"'})
+        return Response("Требуется авторизация", 401, {"WWW-Authenticate": 'Basic realm="BiDsy Admin", charset="UTF-8"'})
     return None
 
 
@@ -74,6 +74,11 @@ def index():
         return render_template("index.html")
     except Exception as exc:
         return f"Ошибка загрузки главной страницы: {exc}", 500
+
+
+@app.route('/privacy')
+def privacy():
+    return render_template("privacy.html")
 
 
 @app.post("/register")
