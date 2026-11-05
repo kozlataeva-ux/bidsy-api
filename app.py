@@ -13,6 +13,27 @@ from init_db import DATABASE, generate_license_key, init_db
 RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
 
 app = Flask(__name__)
+
+
+@app.before_request
+def maintenance_mode():
+    path = request.path
+    if request.args.get("preview") == "1":
+        return None
+    if (
+        path == "/api/validate"
+        or path == "/api/admin"
+        or path.startswith("/api/admin/")
+        or path == "/admin"
+        or path.startswith("/admin/")
+        or path == "/health"
+        or path == "/static"
+        or path.startswith("/static/")
+    ):
+        return None
+    return render_template("maintenance.html"), 503
+
+
 try:
     init_db()
 except Exception as exc:

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f0f13">
+  <meta name="robots" content="noindex,nofollow">
+  <title>BiDsy — Скоро открытие</title>
+  <link rel="icon" type="image/png" href="/static/favicon.png">
+  <style>
+    :root { color-scheme: dark; font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif; background: #0f0f13; color: #f6f3fb; }
+    * { box-sizing: border-box; }
+    body { min-width: 320px; min-height: 100vh; margin: 0; overflow: hidden; background: #0f0f13; }
+    .scene { position: relative; display: grid; min-height: 100vh; place-items: center; overflow: hidden; padding: 32px 20px; isolation: isolate; }
+    .glow { position: absolute; z-index: -1; top: -270px; left: calc(50% - 380px); width: 620px; height: 620px; border-radius: 50%; background: #8b5cf6; filter: blur(150px); opacity: .17; }
+    .glow-cyan { top: auto; right: -330px; bottom: -420px; left: auto; width: 700px; height: 700px; background: #06b6d4; opacity: .1; }
+    .grid { position: absolute; z-index: -1; inset: 0; background-image: linear-gradient(#ffffff07 1px, transparent 1px), linear-gradient(90deg, #ffffff07 1px, transparent 1px); background-size: 58px 58px; mask-image: linear-gradient(#000, transparent 83%); }
+    .card { width: min(100%, 620px); text-align: center; animation: arrive .7s ease both; }
+    @keyframes arrive { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    .brand-mark { position: relative; display: grid; width: 92px; height: 92px; place-items: center; margin: 0 auto 28px; border: 1px solid #c4a7ff66; border-radius: 28px; background: linear-gradient(145deg, #8b5cf6, #5732bd 70%, #34266e); box-shadow: 0 14px 55px #8b5cf650, inset 0 1px #ffffff5c; color: #fff; font-size: 54px; font-weight: 800; letter-spacing: -5px; text-indent: -4px; transform: rotate(-5deg); }
+    .brand-mark::after { position: absolute; inset: -7px; border: 1px solid #a78bfa27; border-radius: 33px; content: ""; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 18px; padding: 8px 12px; border: 1px solid #a78bfa40; border-radius: 999px; background: #8b5cf612; color: #c6afff; font-size: 9px; font-weight: 700; letter-spacing: 1.2px; }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #aa8bff; box-shadow: 0 0 12px #aa8bff; animation: pulse 1.8s ease-in-out infinite; }
+    @keyframes pulse { 50% { opacity: .4; } }
+    h1 { margin: 0; font-size: clamp(38px, 8vw, 62px); font-weight: 750; letter-spacing: -3.3px; line-height: 1.07; }
+    h1 span { background: linear-gradient(100deg, #f3edff, #b99cff 60%, #69d8e7); background-clip: text; -webkit-text-fill-color: transparent; }
+    p { max-width: 470px; margin: 18px auto 0; color: #aaa5b5; font-size: 14px; line-height: 1.8; }
+    .footer { position: absolute; right: 18px; bottom: 23px; left: 18px; color: #6f6b79; font-size: 9px; text-align: center; }
+    @media (max-width: 480px) { .brand-mark { width: 78px; height: 78px; border-radius: 24px; font-size: 46px; } h1 { letter-spacing: -2px; } p { font-size: 12px; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <main class="scene">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="glow glow-cyan" aria-hidden="true"></div>
+    <div class="grid" aria-hidden="true"></div>
+    <section class="card" aria-labelledby="maintenance-title">
+      <div class="brand-mark" aria-label="BiDsy">B</div>
+      <div class="eyebrow"><span class="status-dot"></span> СКОРО ОТКРЫТИЕ</div>
+      <h1 id="maintenance-title"><span>BiDsy — Скоро открытие.</span></h1>
+      <p>Мы делаем умную автоматизацию смет. Следите за обновлениями.</p>
+    </section>
+    <footer class="footer">© 2026 BiDsy. Все права защищены.</footer>
+  </main>
+</body>
+</html>
