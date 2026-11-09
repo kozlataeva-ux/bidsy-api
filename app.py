@@ -28,6 +28,7 @@ def maintenance_mode():
         or path.startswith("/admin/")
         or path == "/health"
         or path == "/register"
+        or path == "/privacy"
         or path == "/static"
         or path.startswith("/static/")
     ):

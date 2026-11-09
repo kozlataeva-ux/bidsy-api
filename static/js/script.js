@@ -63,24 +63,6 @@ if (form && consent && submitButton) {
   });
 }
 
-const typedSubtitle = document.querySelector("#typed-subtitle");
-if (typedSubtitle && window.matchMedia("(prefers-reduced-motion: reduce)").matches === false) {
-  const fullText = typedSubtitle.dataset.text || typedSubtitle.textContent.trim();
-  typedSubtitle.textContent = "";
-  const cursor = document.createElement("span");
-  cursor.className = "type-cursor";
-  cursor.setAttribute("aria-hidden", "true");
-  typedSubtitle.append(cursor);
-  let character = 0;
-  const typeNext = () => {
-    if (character >= fullText.length) return;
-    cursor.before(document.createTextNode(fullText[character]));
-    character += 1;
-    window.setTimeout(typeNext, 24);
-  };
-  window.setTimeout(typeNext, 420);
-}
-
 document.querySelectorAll(".faq-item").forEach((item) => {
   item.addEventListener("toggle", () => {
     if (!item.open) return;
@@ -90,9 +72,6 @@ document.querySelectorAll(".faq-item").forEach((item) => {
   });
 });
 
-if (window.AOS) {
-  AOS.init({ duration: 650, once: true, offset: 45, easing: "ease-out-cubic" });
-}
 
 const cookieBanner = document.querySelector("#cookie-banner");
 if (cookieBanner) {
