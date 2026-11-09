@@ -101,7 +101,22 @@ def index():
 
 @app.route('/privacy')
 def privacy():
-    return render_template("privacy.html")
+    operator = {
+        "name": os.environ.get("BIDSY_OPERATOR_NAME", "").strip(),
+        "email": os.environ.get("BIDSY_OPERATOR_EMAIL", "").strip(),
+        "address": os.environ.get("BIDSY_OPERATOR_ADDRESS", "").strip(),
+    }
+    if not all(operator.values()):
+        return Response(
+            "Сведения об операторе временно недоступны. Попробуйте позже.",
+            status=503,
+            content_type="text/plain; charset=utf-8",
+            headers={"Cache-Control": "no-store"},
+        )
+    return Response(
+        render_template("privacy.html", operator=operator),
+        headers={"Cache-Control": "no-store"},
+    )
 
 
 @app.post("/register")

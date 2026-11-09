@@ -3,3 +3,6 @@ database.db-shm
 database.db-wal
 __pycache__/
 .venv/
+.env
+.env.*
+!.env.example
