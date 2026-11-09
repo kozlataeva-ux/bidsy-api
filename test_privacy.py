@@ -68,6 +68,18 @@ class PrivacyTests(unittest.TestCase):
         self.assertNotIn('<script>alert("test")</script>', html)
         self.assertIn("&lt;script&gt;", html)
 
+    def test_infrastructure_has_no_draft_fields(self):
+        self.configure()
+        html = self.client.get("/privacy").get_data(as_text=True)
+        self.assertNotIn("[указать", html)
+        self.assertNotIn("legal-notice", html)
+        self.assertIn("ООО «ТАЙМВЭБ.КЛАУД»", html)
+        self.assertIn("г. Москва, зона MSK-1", html)
+        self.assertIn("30 календарных дней с момента выгрузки", html)
+        self.assertIn("не является заявлением о сроке хранения журналов у провайдера", html)
+        self.assertIn("https://timeweb.cloud/contacts", html)
+        self.assertNotIn("библиотеки анимации AOS", html)
+
     def test_updated_environment_is_used_without_code_change(self):
         self.configure()
         self.client.get("/privacy")
