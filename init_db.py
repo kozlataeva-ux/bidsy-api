@@ -1,12 +1,16 @@
 """SQLite schema and license key generation."""
 
 import secrets
+import os
 import sqlite3
 import string
 from contextlib import closing
 from pathlib import Path
 
-DATABASE = Path("/tmp/database.db")
+DATABASE = Path(os.environ.get(
+    "BIDSY_DATABASE_PATH",
+    str(Path(__file__).resolve().parent / "instance" / "database.db"),
+))
 KEY_ALPHABET = string.ascii_uppercase + string.digits
 
 
@@ -17,6 +21,7 @@ def generate_license_key():
 
 
 def init_db():
+    DATABASE.parent.mkdir(parents=True, exist_ok=True)
     with closing(sqlite3.connect(DATABASE, timeout=10)) as connection, connection:
         connection.execute(
             """

@@ -4,7 +4,8 @@ import hmac
 import os
 import requests
 import sqlite3
-from contextlib import contextmanager
+from contextlib import closing, contextmanager
+from pathlib import Path
 
 from flask import Flask, Response, jsonify, render_template, request
 
@@ -17,6 +18,8 @@ app = Flask(__name__)
 
 @app.before_request
 def maintenance_mode():
+    if os.environ.get("BIDSY_MAINTENANCE", "0").strip().lower() not in ("1", "true", "yes"):
+        return None
     path = request.path
     if request.args.get("preview") == "1":
         return None
@@ -65,8 +68,8 @@ def require_admin():
     auth = request.authorization
     username = auth.username if auth else ""
     password = auth.password if auth else ""
-    expected = os.environ.get("OQ_ADMIN_PASSWORD", "OQsuperadmin2026")
-    if not (hmac.compare_digest(username, "admin") and hmac.compare_digest(password, expected)):
+    expected = os.environ.get("OQ_ADMIN_PASSWORD", "")
+    if not expected or not (hmac.compare_digest(username, "admin") and hmac.compare_digest(password, expected)):
         return Response("Требуется авторизация", 401, {"WWW-Authenticate": 'Basic realm="BiDsy Admin", charset="UTF-8"'})
     return None
 
@@ -161,6 +164,29 @@ def admin():
     response = Response(render_template("admin.html", companies=companies, company_names=company_names))
     response.headers["Cache-Control"] = "no-store"
     return response
+
+
+@app.get("/api/admin/backup")
+def download_database_backup():
+    headers = {"Cache-Control": "no-store", "X-Content-Type-Options": "nosniff"}
+    auth_error = require_admin()
+    if auth_error:
+        auth_error.headers.update(headers)
+        return auth_error
+    try:
+        source_uri = Path(DATABASE).resolve().as_uri() + "?mode=ro"
+        with closing(sqlite3.connect(source_uri, uri=True, timeout=10)) as source:
+            with closing(sqlite3.connect(":memory:")) as snapshot:
+                source.backup(snapshot)
+                content = snapshot.serialize()
+                # backup() includes committed WAL pages. Make the standalone
+                # snapshot readable without WAL sidecars, including deserialize().
+                # https://www.sqlite.org/c3ref/deserialize.html
+                content = content[:18] + b"\x01\x01" + content[20:]
+    except sqlite3.Error:
+        return Response("Резервная копия временно недоступна.", status=503, headers=headers)
+    headers["Content-Disposition"] = 'attachment; filename="bidsy-backup.sqlite3"'
+    return Response(content, content_type="application/vnd.sqlite3", headers=headers)
 
 
 @app.post("/api/admin/approve/<int:company_id>")
