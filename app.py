@@ -6,14 +6,33 @@ import requests
 import sqlite3
 from contextlib import closing, contextmanager
 from pathlib import Path
+from urllib.parse import urlsplit
 
-from flask import Flask, Response, jsonify, render_template, request
+from flask import Flask, Response, jsonify, redirect, render_template, request
 
 from init_db import DATABASE, generate_license_key, init_db
 
 RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
+DEFAULT_INSTALLER_URL = (
+    "https://github.com/kozlataeva-ux/bidsy-api/releases/download/"
+    "desktop-v2026.11.10/BiDsy-Windows-x64-2026-11-10.zip"
+)
 
 app = Flask(__name__)
+
+
+def installer_download_url():
+    """Return the configured public archive URL, if safe to redirect to."""
+    url = os.environ.get("BIDSY_DOWNLOAD_URL", DEFAULT_INSTALLER_URL).strip()
+    if not url or any(char.isspace() for char in url):
+        return ""
+    try:
+        parsed = urlsplit(url)
+        if parsed.scheme != "https" or not parsed.hostname or parsed.username or parsed.password:
+            return ""
+    except ValueError:
+        return ""
+    return url
 
 
 @app.before_request
@@ -97,9 +116,20 @@ def send_license_email(email, full_name, company_name, license_key):
 @app.get("/")
 def index():
     try:
-        return render_template("index.html")
+        return render_template("index.html", download_ready=bool(installer_download_url()))
     except Exception as exc:
         return f"Ошибка загрузки главной страницы: {exc}", 500
+
+
+@app.get("/download/windows")
+def download_windows():
+    url = installer_download_url()
+    if not url:
+        return Response("Архив установки пока недоступен.", status=503)
+    response = redirect(url, code=302)
+    response.headers["Cache-Control"] = "no-store"
+    response.headers["Referrer-Policy"] = "no-referrer"
+    return response
 
 
 @app.route('/privacy')

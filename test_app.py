@@ -69,6 +69,31 @@ class SiteTests(unittest.TestCase):
         self.assertIn("Из PDF и Excel", response.get_data(as_text=True))
         self.assertIn('id="signup-form"', response.get_data(as_text=True))
 
+    def test_installer_download_appears_only_with_https_archive(self):
+        with patch.dict(os.environ, {"BIDSY_MAINTENANCE": "0"}):
+            os.environ.pop("BIDSY_DOWNLOAD_URL", None)
+            default = self.client.get("/download/windows")
+        self.assertEqual(default.headers["Location"], self.site.DEFAULT_INSTALLER_URL)
+
+        archive_url = "https://downloads.s3.twcstorage.ru/BiDsy-Windows.zip"
+        with patch.dict(os.environ, {"BIDSY_MAINTENANCE": "0", "BIDSY_DOWNLOAD_URL": archive_url}):
+            page = self.client.get("/")
+            download = self.client.get("/download/windows")
+        self.assertIn('href="/download/windows"', page.get_data(as_text=True))
+        self.assertIn("Распакуйте ZIP целиком", page.get_data(as_text=True))
+        self.assertEqual(download.status_code, 302)
+        self.assertEqual(download.headers["Location"], archive_url)
+        self.assertEqual(download.headers["Cache-Control"], "no-store")
+
+        with patch.dict(os.environ, {"BIDSY_MAINTENANCE": "0", "BIDSY_DOWNLOAD_URL": "http://example.com/file.zip"}):
+            page = self.client.get("/")
+            download = self.client.get("/download/windows")
+        self.assertNotIn('href="/download/windows"', page.get_data(as_text=True))
+        self.assertEqual(download.status_code, 503)
+
+        with patch.dict(os.environ, {"BIDSY_MAINTENANCE": "0", "BIDSY_DOWNLOAD_URL": ""}):
+            self.assertEqual(self.client.get("/download/windows").status_code, 503)
+
     def test_registration_creates_pending_request_without_license(self):
         response = self.register()
         self.assertEqual(response.status_code, 201)

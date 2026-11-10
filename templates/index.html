@@ -51,8 +51,12 @@
           <div class="eyebrow"><span class="status-dot"></span> BIDSY / ДЛЯ РАБОТЫ СО СМЕТАМИ</div>
           <h1>Из PDF и Excel —<br>в смету.<br><span class="gradient-text">Без повторного ввода.</span></h1>
           <p class="hero-copy">Соберите позиции из исходных документов, настройте наценку и перенесите данные в estimates.guru. Вы проверяете результат — BiDsy берёт на себя рутину.</p>
-          <div class="hero-actions"><a class="button" href="#request-form">Запросить доступ <span aria-hidden="true">↗</span></a><a class="text-link" href="#how-it-works">Посмотреть, как работает <span aria-hidden="true">↓</span></a></div>
-          <div class="hero-meta"><span>Приложение для Windows</span><span>PDF · XLSX · XLS</span></div>
+          <div class="hero-actions">
+            {% if download_ready %}<a class="button" href="{{ url_for('download_windows') }}">Скачать ZIP для Windows <span aria-hidden="true">↓</span></a>{% else %}<a class="button" href="#request-form">Запросить доступ <span aria-hidden="true">↗</span></a>{% endif %}
+            <a class="text-link" href="#request-form">Получить ключ <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="hero-meta"><span>Приложение для Windows x64</span><span>PDF · XLSX · XLS</span></div>
+          {% if download_ready %}<p class="download-note">Распакуйте ZIP целиком. Затем запустите «Установить-App-Smeta.cmd». Для активации понадобится лицензионный ключ.</p>{% endif %}
         </div>
         <div class="product-wrap">
           <div class="product-window" aria-label="Пример обработки сметы с демонстрационными данными">
@@ -119,7 +123,7 @@
           <div class="faq-list">
             <details class="faq-item"><summary>Какие файлы поддерживает BiDsy?</summary><div class="faq-answer">Приложение рассчитано на исходные сметы в PDF и Excel. Доступные форматы зависят от содержимого документа и версии приложения.</div></details>
             <details class="faq-item"><summary>Нужно ли переносить смету вручную?</summary><div class="faq-answer">BiDsy автоматизирует разбор и заполнение повторяющихся полей. Перед отправкой результата вы можете проверить параметры сметы.</div></details>
-            <details class="faq-item"><summary>Как получить доступ?</summary><div class="faq-answer">Отправьте заявку через форму. Команда рассмотрит её и свяжется с вами по указанному адресу электронной почты.</div></details>
+            <details class="faq-item"><summary>Как получить доступ?</summary><div class="faq-answer">{% if download_ready %}Скачайте ZIP для Windows, распакуйте его и запустите установщик. {% endif %}Отправьте заявку через форму для получения лицензионного ключа. Команда рассмотрит её и свяжется с вами по указанному адресу электронной почты.</div></details>
             <details class="faq-item"><summary>Что происходит с загруженными файлами?</summary><div class="faq-answer">На сайте нет загрузки смет. Документы выбираются в приложении для Windows. Для обработки сложных документов приложение может обращаться к внешнему ИИ-сервису в соответствии с настройками.</div></details>
           </div>
       </section>
