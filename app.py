@@ -15,7 +15,7 @@ from init_db import DATABASE, generate_license_key, init_db
 RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
 DEFAULT_INSTALLER_URL = (
     "https://github.com/kozlataeva-ux/bidsy-api/releases/download/"
-    "desktop-v2026.11.10/BiDsy-Windows-x64-2026-11-10.zip"
+    "desktop-v2026.11.10/BiDsy-Windows-x64-2026-11-11-v3.zip"
 )
 
 app = Flask(__name__)
